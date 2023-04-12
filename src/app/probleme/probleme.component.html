@@ -81,10 +81,25 @@
                                     <select class="form-control" 
                                           id="typeProblemeId"
                                           formControlName="typeProbleme"
+                                          [ngClass]="{'is-valid': (problemeForm.get('typeProbleme').touched || 
+                                          problemeForm.get('typeProbleme').dirty) &&
+                                          problemeForm.get('typeProbleme').valid,
+                                          'is-invalid': (problemeForm.get('typeProbleme').touched || 
+                                          problemeForm.get('typeProbleme').dirty) &&
+                                          !problemeForm.get('typeProbleme').valid}"
                                     >
                                           <option value="">Sélectionner un type de problème (obligatoire)</option>
                                           <option *ngFor="let typeProbleme of typesProbleme" [value]="typeProbleme.id">{{typeProbleme.descriptionTypeProbleme}}</option>
                                     </select>
+                                    <span class="form-text" *ngIf="(problemeForm.get('typeProbleme').touched ||
+                                          problemeForm.get('typeProbleme').dirty) &&
+                                          (problemeForm.get('typeProbleme').errors)">
+                                          <span *ngIf=" problemeForm.get('typeProbleme').errors['required']">
+                                                <small class="text-muted">
+                                                      Merci de saisir un problème.
+                                                </small>
+                                          </span>
+                                    </span> 
                               </div>
                         </div>
                   </form>
