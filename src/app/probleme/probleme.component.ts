@@ -22,23 +22,24 @@ export class ProblemeComponent implements OnInit{
       typeProbleme: ['', Validators.required], 
       notification: ['NePasMeNotifier'],
       courrielGroup: this.fb.group({
-          courriel: [{value: ''}],
-          courrielConfirmation: [{value: ''}],
+          courriel: [{value: '', disabled: true}],
+          courrielConfirmation: [{value: '', disabled: true}],
         }),
-      telephone: [{value: ''}],
+      telephone: [{value: '', disabled: true}],
     });
 
     this.typeproblemeService.obtenirTypesProbleme()
         .subscribe(typesProbleme => this.typesProbleme = typesProbleme,
                    error => this.errorMessage = <any>error); 
-  }
+        this.problemeForm.get('notification').valueChanges.subscribe(value => this.appliquerNotifications(value));
+                  }
 
   appliquerNotifications(typeNotification: string): void {
     const courrielControl = this.problemeForm.get('courrielGroup.courriel');
     const courrielConfirmationControl = this.problemeForm.get('courrielGroup.courrielConfirmation');   
     const courrielGroupControl = this.problemeForm.get('courrielGroup');      
     const telephoneControl = this.problemeForm.get('telephone');
-
+    
     courrielControl.clearValidators();
     courrielControl.reset()
     courrielControl.disable();  
@@ -62,7 +63,7 @@ export class ProblemeComponent implements OnInit{
       {
         if(typeNotification === 'ParMessageTexte')
         {
-          telephoneControl.setValidators([Validators.required, Validators.minLength(10),  Validators.maxLength(10), Validators.pattern('[0-9]+')]);     
+          telephoneControl.setValidators([Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('[0-9]+')]);     
           telephoneControl.enable();         
         }
       }
