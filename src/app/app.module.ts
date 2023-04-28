@@ -20,8 +20,8 @@ import { ProblemeData } from './probleme/typeprobleme-data';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    HttpClientInMemoryWebApiModule .forRoot(ProblemeData, { delay: 1000 })
+    HttpClientModule
+    //HttpClientInMemoryWebApiModule .forRoot(ProblemeData, { delay: 1000 })
   ],
   providers: [],
   bootstrap: [AppComponent]
